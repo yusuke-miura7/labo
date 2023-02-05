@@ -1,0 +1,85 @@
+No  Node1 Node2 type valid 
+0   0     1     1    1
+1   0     2     1    1
+2   0     3     1    1
+3   1     2     1    1
+4   1     4     1    1
+5   2     3     1    1
+6   2     4     1    1
+7   3     4     1    1
+8   4     5     1    1   
+
+//1.目的関数:距離でソート
+				Collections.sort(pareto_group, comparator_distance);
+				double value;
+				double max = 0;
+				double min_dist = (pareto_group.get(0)).eva_distance;
+				double max_dist = (pareto_group.get(pareto_group.size() - 1)).eva_distance;
+				double normalize_dist = max_dist - min_dist;
+				//境界には最大値
+				//				(pareto_group.get(0)).crowing = 10000;
+				//				(pareto_group.get(pareto_group.size() - 1)).crowing = 10000;
+
+				//個体の混雑度計算
+				for (int i = 1; i < pareto_group.size() - 1; i++) {
+					value = (Math.abs((pareto_group.get(i - 1)).eva_distance - (pareto_group.get(i + 1)).eva_distance))
+							/ normalize_dist;
+					(pareto_group.get(i)).crowing += value;
+					if (max < value) {
+						max = value;
+					}
+				}
+
+				(pareto_group.get(0)).crowing += max;
+				(pareto_group.get(pareto_group.size() - 1)).crowing += max;
+
+				max = 0;
+
+				//2.目的関数:標高でソート	
+				Collections.sort(pareto_group, comparator_height);
+				double min_height = (pareto_group.get(0)).eva_height;
+				double max_height = (pareto_group.get(pareto_group.size() - 1)).eva_height;
+				double normalize_height = max_height - min_height;
+				//境界には最大値
+				//				(pareto_group.get(0)).crowing = 10000;
+				//				(pareto_group.get(pareto_group.size() - 1)).crowing = 10000;
+				//個体の混雑度計算
+
+				for (int i = 1; i < pareto_group.size() - 1; i++) {
+					value = (Math
+							.abs((pareto_group.get(i - 1)).eva_height - (pareto_group.get(i + 1)).eva_height))
+							/ normalize_height;
+					(pareto_group.get(i)).crowing += value;
+					if (max < value) {
+						max = value;
+					}
+				}
+
+				(pareto_group.get(0)).crowing = max;
+				(pareto_group.get(pareto_group.size() - 1)).crowing = max;
+				max = 0;
+
+				//3.目的関数:河川距離でソート
+				Collections.sort(pareto_group, comparator_river);
+				double min_river = (pareto_group.get(0)).eva_river;
+				double max_river = (pareto_group.get(pareto_group.size() - 1)).eva_river;
+				double normalize_river = max_river - min_river;
+				//境界には最大値
+				//				(pareto_group.get(0)).crowing = 10000;
+				//				(pareto_group.get(pareto_group.size() - 1)).crowing = 10000;
+				//個体の混雑度計算
+				for (int i = 1; i < pareto_group.size() - 1; i++) {
+					value = (Math
+							.abs((pareto_group.get(i - 1)).eva_river - (pareto_group.get(i + 1)).eva_river))
+							/ normalize_river;
+					(pareto_group.get(i)).crowing += value;
+					if (max < value) {
+						max = value;
+					}
+				}
+
+				(pareto_group.get(0)).crowing = max;
+				(pareto_group.get(pareto_group.size() - 1)).crowing = max;
+
+				//混雑度距離でソート
+				Collections.sort(pareto_group, comparator_crowing);

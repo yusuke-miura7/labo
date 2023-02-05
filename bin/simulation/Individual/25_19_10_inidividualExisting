@@ -1,0 +1,10 @@
+nodelist [0, 3, 2, 1, 4, 5]
+linklist [2, 5, 3, 4, 8]
+eva_distance 23.0
+eva_height 3.826
+
+nodelist [0, 3, 2, 4, 5]
+linklist [2, 5, 6, 8]
+eva_distance 18.0
+eva_height 3.722
+
